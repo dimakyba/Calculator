@@ -32,6 +32,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CalculatorScreen(modifier: Modifier) {
   var isScientific by remember { mutableStateOf(false) }
+  var expression by remember { mutableStateOf("") }
+
   Box(modifier = Modifier) {
     Column(
       modifier = Modifier.fillMaxSize(),
@@ -42,7 +44,7 @@ fun CalculatorScreen(modifier: Modifier) {
         Text(text = "Sc")
       }
       Text(
-        text = "123*123",
+        text = expression,
         style = TextStyle(
           fontSize = 30.sp,
           textAlign = TextAlign.End
@@ -62,7 +64,12 @@ fun CalculatorScreen(modifier: Modifier) {
       )
 
       Spacer(modifier = Modifier.height(10.dp))
-      CalculatorButtonMatrix(isScientific)
+      CalculatorButtonMatrix(isScientific) { btn ->
+        expression = processButtonInput(
+          btn,
+          expression
+        )
+      }
     }
   }
 }
@@ -110,10 +117,10 @@ val allButtons = listOf(
 )
 
 @Composable
-fun CalculatorButton(btn: String) {
+fun CalculatorButton(btn: String, onClick: () -> Unit) {
   Box(modifier = Modifier.padding(8.dp)) {
     FloatingActionButton(
-      onClick = {},
+      onClick = onClick,
       modifier = Modifier
         .size(80.dp)
         .shadow(0.dp), shape = CircleShape
@@ -125,7 +132,7 @@ fun CalculatorButton(btn: String) {
 }
 
 @Composable
-fun CalculatorButtonMatrix(isScientific: Boolean) {
+fun CalculatorButtonMatrix(isScientific: Boolean, onButtonClick: (String) -> Unit) {
   val buttonsToShow = if (isScientific) {
     allButtons
   } else {
@@ -135,9 +142,19 @@ fun CalculatorButtonMatrix(isScientific: Boolean) {
     columns = GridCells.Fixed(if (isScientific) 5 else 4)
   ) {
     items(buttonsToShow, key = { it.label }) { btn ->
-      CalculatorButton(btn.label)
+      CalculatorButton(btn.label) {
+        onButtonClick(btn.label)
+      }
     }
   }
 }
 
+fun processButtonInput(btn: String, currentExpr: String): String {
+  return when (btn) {
+    "C" -> ""
+    "<=" -> if (currentExpr.isNotEmpty()) currentExpr.dropLast(1) else ""
+    "=" -> currentExpr
+    else -> currentExpr + btn
+  }
+}
 
