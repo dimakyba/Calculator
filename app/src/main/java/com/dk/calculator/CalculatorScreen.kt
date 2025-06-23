@@ -75,13 +75,13 @@ fun CalculatorScreen(modifier: Modifier) {
 }
 
 
-val buttonList = listOf(
-  "<-", "C", "<=", "/",
-  "7", "8", "9", "*",
-  "4", "5", "6", "-",
-  "1", "2", "3", "+",
-  "->", "0", ".", "="
-)
+//val buttonList = listOf(
+//  "<-", "C", "<=", "/",
+//  "7", "8", "9", "*",
+//  "4", "5", "6", "-",
+//  "1", "2", "3", "+",
+//  "->", "0", ".", "="
+//)
 
 data class CalcButton(
   val label: String,
@@ -93,7 +93,7 @@ val allButtons = listOf(
   CalcButton("C", false),
   CalcButton("<=", false),
   CalcButton("/", false),
-  CalcButton("pi", true),
+  CalcButton("π", true),
   CalcButton("7", false),
   CalcButton("8", false),
   CalcButton("9", false),
@@ -103,12 +103,12 @@ val allButtons = listOf(
   CalcButton("5", false),
   CalcButton("6", false),
   CalcButton("-", false),
-  CalcButton("v", true),
+  CalcButton("√", true),
   CalcButton("1", false),
   CalcButton("2", false),
   CalcButton("3", false),
   CalcButton("+", false),
-  CalcButton("x^2", true),
+  CalcButton("x²", true),
   CalcButton("->", false),
   CalcButton("0", false),
   CalcButton(".", false),
