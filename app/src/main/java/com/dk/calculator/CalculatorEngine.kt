@@ -12,13 +12,9 @@ data class CalculationSnapshot(
 
 class CalculatorEngine {
   var displayValue = "0"
-    private set
   var calculationExpression = ""
-    private set
   var isNewOperation = true
-    private set
   var isInErrorState = false
-    private set
 
   fun setDisplayValue(value: String) {
     displayValue = value
