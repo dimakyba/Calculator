@@ -1,5 +1,6 @@
 package com.dk.calculator
 
+import androidx.compose.ui.graphics.Color
 import com.dk.calculator.command.BackspaceCommand
 import com.dk.calculator.command.CalculateCommand
 import com.dk.calculator.command.ClearCommand
@@ -23,7 +24,7 @@ object CalculatorActions {
         onStateChanged()
       }
 
-      "<=" -> {
+      "⌫" -> {
         cm.executeCommand(BackspaceCommand(calc))
         onStateChanged()
       }
@@ -65,12 +66,12 @@ object CalculatorActions {
         onStateChanged()
       }
 
-      "->" -> {
+      "↪" -> {
         cm.redo()
         onStateChanged()
       }
 
-      "<-" -> {
+      "↩" -> {
         cm.undo()
         onStateChanged()
       }
@@ -79,6 +80,15 @@ object CalculatorActions {
         cm.executeCommand(InputCommand(calc, btn))
         onStateChanged()
       }
+    }
+  }
+
+  fun getColor(btn: String): Color {
+    when (btn) {
+      "=", "=", "+", "-", "*", "/", "π", "e", "√", "x²", "ln" -> return Color(0xFFFF9F0A)
+      "1", "2", "3", "4", "5", "6", "7", "8", "9", "↪", "0", "." -> return Color(0xFF2A2A2C)
+      "↩", "C", "⌫" -> return Color(0xFF5C5C5F)
+      else -> return Color(0xFFFF1100)
     }
   }
 }

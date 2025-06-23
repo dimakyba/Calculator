@@ -177,7 +177,7 @@ class CalculatorEngine {
       else -> throw IllegalArgumentException("Error")
     }
 
-    calculationExpression = "$calculationExpression $displayValue ="
+    calculationExpression = "$calculationExpression $displayValue"
 
     val resultString = result.toString()
     displayValue = if (resultString.endsWith("0")) {
