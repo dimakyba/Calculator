@@ -12,21 +12,10 @@ data class CalculationSnapshot(
 
 class CalculatorEngine {
   var displayValue = "0"
-    set(value) {
-      field = value
-    }
   var calculationExpression = ""
-    set(value) {
-      field = value
-    }
   var isNewOperation = true
-    set(value) {
-      field = value
-    }
   var isInErrorState = false
-    set(value) {
-      field = value
-    }
+
 
 //  fun setDisplayValue(value: String) {
 //    displayValue = value
@@ -42,10 +31,10 @@ class CalculatorEngine {
 
   fun addDecimalPoint() {
     if (isNewOperation) {
-      displayValue = "0,"
+      displayValue = "0."
       isNewOperation = false
-    } else if (!displayValue.contains(",")) {
-      displayValue += ","
+    } else if (!displayValue.contains(".")) {
+      displayValue += "."
     }
   }
 
@@ -191,13 +180,11 @@ class CalculatorEngine {
     calculationExpression = "$calculationExpression $displayValue ="
 
     val resultString = result.toString()
-//    displayValue = if (resultString.endsWith("0")) {
-//      resultString.dropLast(2)
-//    } else {
-//      resultString
-//    }
-
-    displayValue = resultString
+    displayValue = if (resultString.endsWith("0")) {
+      resultString.dropLast(2)
+    } else {
+      resultString
+    }
     isNewOperation = true
 
 
