@@ -3,7 +3,7 @@ package com.dk.calculator.command
 import com.dk.calculator.CalculatorEngine
 import com.dk.calculator.OldState
 
-class ScinetificCommand(calculator: CalculatorEngine, private val operation: String) :
+class ScientificCommand(calculator: CalculatorEngine, private val operation: String) :
   CalculatorCommand(calculator) {
 
   private lateinit var oldState: OldState

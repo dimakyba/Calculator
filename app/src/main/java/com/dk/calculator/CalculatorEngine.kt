@@ -12,21 +12,33 @@ data class CalculationSnapshot(
 
 class CalculatorEngine {
   var displayValue = "0"
+    set(value) {
+      field = value
+    }
   var calculationExpression = ""
+    set(value) {
+      field = value
+    }
   var isNewOperation = true
+    set(value) {
+      field = value
+    }
   var isInErrorState = false
+    set(value) {
+      field = value
+    }
 
-  fun setDisplayValue(value: String) {
-    displayValue = value
-  }
-
-  fun setCalculationExpression(expression: String) {
-    calculationExpression = expression
-  }
-
-  fun setNewOperation(value: Boolean) {
-    isNewOperation = value
-  }
+//  fun setDisplayValue(value: String) {
+//    displayValue = value
+//  }
+//
+//  fun setCalculationExpression(expression: String) {
+//    calculationExpression = expression
+//  }
+//
+//  fun setNewOperation(value: Boolean) {
+//    isNewOperation = value
+//  }
 
   fun addDecimalPoint() {
     if (isNewOperation) {
@@ -74,10 +86,12 @@ class CalculatorEngine {
     else if (displayValue == "e") displayValue = kotlin.math.E.toString()
 
     calculationExpression = "$displayValue $op"
+    isNewOperation = true
   }
 
   fun performScientificOperation(
-    op: String) : OldState {
+    op: String
+  ): OldState {
     val oldState = OldState(displayValue, calculationExpression)
 
     var input = displayValue.toDoubleOrNull() ?: throw IllegalArgumentException("bad input")
@@ -165,15 +179,27 @@ class CalculatorEngine {
       "-" -> firstOperand - secondOperand
       "*" -> firstOperand * secondOperand
       "/" -> {
-        if (secondOperand == 0.0) throw ArithmeticException("Divide by zero")
+        if (secondOperand == 0.0) {
+          throw ArithmeticException("Divide by zero")
+        }
         firstOperand / secondOperand
       }
+
       else -> throw IllegalArgumentException("Error")
     }
 
     calculationExpression = "$calculationExpression $displayValue ="
-    displayValue = result.toString()
+
+    val resultString = result.toString()
+//    displayValue = if (resultString.endsWith("0")) {
+//      resultString.dropLast(2)
+//    } else {
+//      resultString
+//    }
+
+    displayValue = resultString
     isNewOperation = true
+
 
     return CalculationSnapshot(oldDisplay, oldExpression, firstOperand, secondOperand, op)
   }
